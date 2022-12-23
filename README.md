@@ -43,7 +43,7 @@ The idea behind programmatic labeling functions is that for each row of data, we
 
 - **keyword matches:** *If keyword "meow" AND NOT keyword "woof"* then Category Cat
 - **multiple keyword matches:** *If keyword "the cat meows"* then Category Cat
-- **named entity recognitions:** *If ENTITY PERSON* then Category Human. We support over 50 custom made entities.
+- **named entity recognitions:** *If ENTITY PERSON* then Category Human.
 - **regex expressions:** *If $WEIGHT > 150 LBS* then Category Overweight.
 - **part of speech tagging:** *If keyword "run" is a VERB* then Category Exercise.
 
@@ -86,35 +86,4 @@ If your data already has labels, we provide a dashboard to analyze the labels in
 
 <img width="806" alt="Screen Shot 2022-12-23 at 2 19 14 PM" src="https://user-images.githubusercontent.com/42753347/209396710-b8a2997e-3f54-463b-be13-ebfb36d99c68.png">
 
-In the world of data centric AI, data labeling and modeling are often done in conjunction. Oftentimes, your work with Anote may just be the start of your AI and modeling and journey, and as partners we would love to be there for the ride. After the data annotations are complete, we are there to help with model development, and to help you revisit your data label to iterate on your model and improve performance.  For assistance with specific business use cases, and for product concept feedback and suggestions, please contact the Anote team at vidranatan@gmail.com. Below are a few of the common questions we get from customers:
-
-#### What problem are you solving?
-
-Anote is tackling a huge problem that can not be solved in a massively untapped market. For context, **100%** of AI projects need labeled training data to succeed. Right now, less than **0.001%** of data that is required to be labeled is labeled today, resulting in **90%** AI projects failing. Data Scientists realize this problem, as they currently spend **80%** of their time curating, cleaning, preprocessing and labeling their datasets, while only spending **20%** of their time building ML models. Right now, when companies need to label their data for AI projects, they may currently:
-
-- **Leave their dataset unlabeled,** resulting in the project failing from the onset
-- **Label their data themselves in a spreadsheet,** which is extremely tedious, time consuming and mundane work
-- **Build internal tooling to help label their data,** which oftentimes leads to failure as it usually takes years to build
-- **Send their dataset to a team of manual data annotators to label,** with workforces of millions of data labelers around the globe
-
-#### What is the manual data annotation process like?
-
-If companies decide to pay a team of manual data annotators to label their data, this can be extremely tedious work that takes the data annotators a lot of time (many months to years) to return labeled data. When companies get their data back from the data labelers, oftentimes they are not happy with the initial results, as they realize that there exist all of these label errors in their dataset. This usually results in a back-and-forth dialogue where companies ask the data labelers to fix the label errors, add more data to the dataset, and add more classes/categories of data as a result of changing business requirements. To make these adjustments, the data annotators need to manually label all of the data again.
-
-At this point, companies have wasted months to years of their time to get high quality labeled data, which has been a massive pain point. Many companies spend high millions to low billions of dollars on data labeling, but have not seen the dividends pay off. Companies wish there was a better, faster and cheaper way to get labeled data for their AI project, but unfortunately without a high quality, massive labeled training dataset, their AI project can not succeed. To recap, manually labeling training data is not ideal for a variety of reasons, including:
-
-- **Time** - Manually labeling data is painfully slow, and can take months to years to label.
-- **Cost** - Labeling data eats up a significant portion of the AI development budget. Manually labeling data is inherently expensive, as cost normally scales linearly.
-- **Accuracy** - Just because a dataset is labeled manually does not mean that the labels are correct. In fact, most well-known hand-labeled datasets have around 15% label error rates.
-- **Changing Business Requirements** - As we label data, new data often comes in that is needed to be annotated, and new classes of data are added due to changing business requirements. This often requires manually relabeling all of the data again, from scratch.
-
-#### What is unique about the Anote solution?
-One thing that makes our product unique are the novel, proprietary few shot learning algorithms we are developing on the backend. For some context, a few years ago a transformer model called GPT-3 came out, which showed promise in few shot learning, but ended up being way too big, too expensive, and too slow to actually incorporate into your product with a reasonable runtime. Only a few months ago, the product that we wanted to build became possible with the advent of the Setfit model. This model specializes in Few Shot Learning, using a new way of doing AI called a Siamese Network. This model is way cheaper, more accurate, smaller, and faster than existing models, enabling it to actually be distilled into a product with a reasonable run time. The premise of this model is that after labeling a few data points, the rest are predicted.
-
-Anote is the first company to take a derivative of this model (a proprietary ensemble model), bundled up with a lot of additional features, and incorporate it into a real product. We built the product, and you can use it to label specific types of unstructured text data faster and more accurately than any existing tool out there. To be clear, we do not think that the Setfit model, or our proprietary model, is the end-all-be-all model for few shot learning, but just the start of a revolution towards smaller, cheaper, and more lightweight transformer models that can actually be distilled into synchronous products to provide accurate labels with just a few data points. Our product is the first that is:
-
-- **Synchronous** -  you get your data labeled in real time, rather than waiting for the output from data labelers
-- **Few Shot** - label a few, and you label the rest, using state of the art transformer models
-- **Human In The Loop** - we actively learn from the input of subject matter experts, who provide input into our model
-- **Programmatic** - heuristics such as key words, entities and regex expressions are fed into our initialized model
-- **Contextual** - we use LLMs to extract the context of words in sentences, not just the individual words themselves
+In the world of data centric AI, data labeling and modeling are often done in conjunction. Oftentimes, your work with Anote may just be the start of your AI and modeling and journey, and as partners we would love to be there for the ride. After the data annotations are complete, we are there to help with model development, and to help you revisit your data label to iterate on your model and improve performance.  For assistance with specific business use cases, and for product concept feedback and suggestions, please contact the Anote team at vidranatan@gmail.com.
