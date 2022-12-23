@@ -2,7 +2,7 @@
 
 ## Overview
 
-<img width="546" alt="Screen Shot 2022-12-21 at 8 27 33 AM" src="https://user-images.githubusercontent.com/42753347/208916243-c9aebd4d-b494-4e15-9f60-801cec636ccd.png">
+<img width="803" alt="Screen Shot 2022-12-23 at 2 18 21 PM" src="https://user-images.githubusercontent.com/42753347/209396598-1c31fc45-9993-4ac9-bfce-6407d396d61a.png">
 
 Anote is an AI assisted data labeling tool. The core idea behind the Anote product is that as a user, after you label a few data points of text data, we can label the rest. This saves users time and money, while providing users accurate, high quality labeled training data to enable the successful completion of AI projects. To do this, Anote leverages novel technological breakthroughs in NLP and few shot learning to:
 
