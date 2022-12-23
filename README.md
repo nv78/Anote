@@ -12,7 +12,8 @@ Anote is an AI assisted data labeling tool. The core idea behind the Anote produ
 
 ## Upload
 
-<img width="540" alt="Screen Shot 2022-12-21 at 8 34 03 AM" src="https://user-images.githubusercontent.com/42753347/208917519-68014198-7b53-46b7-b289-50e45ced1d97.png">
+
+<img width="803" alt="Screen Shot 2022-12-23 at 2 18 35 PM" src="https://user-images.githubusercontent.com/42753347/209396638-c38fdba5-f6ce-4bcc-bca8-5b9d7890ea24.png">
 
 Once you log in, the first step is to upload a new text based dataset. This can be via:
 
@@ -25,7 +26,7 @@ If you don’t have a dataset readily available you can select a preloaded datas
 
 ## Customize
 
-<img width="543" alt="Screen Shot 2022-12-21 at 8 34 47 AM" src="https://user-images.githubusercontent.com/42753347/208917623-4b8addda-2671-4d0f-8292-d5128ae845a3.png">
+<img width="804" alt="Screen Shot 2022-12-23 at 2 18 49 PM" src="https://user-images.githubusercontent.com/42753347/209396661-ddb5e8bb-6c21-4138-bb29-65a0b67a086e.png">
 
 Once you have uploaded your dataset or selected a preloaded dataset, the next step is customizing. Here you can choose the task. 
 
@@ -50,7 +51,7 @@ These programmatic labeling functions could also be more complex ontologies that
 
 ## Annotate
 
-<img width="543" alt="Screen Shot 2022-12-21 at 8 35 13 AM" src="https://user-images.githubusercontent.com/42753347/208917700-263082d6-479f-4891-b0f1-c493d814f884.png">
+<img width="804" alt="Screen Shot 2022-12-23 at 2 18 57 PM" src="https://user-images.githubusercontent.com/42753347/209396675-fea4396a-1f06-4960-810d-7868685835ea.png">
 
 After creating initial programmatic labeling functions, the next step is to begin annotating. We designed our annotation interface to be as seamless, easy to use and enjoyable as possible, almost like a quizlet for data labeling. The GUI is flexible, able to be modified based upon dataset, document type and task. Here, the data labeler sees a row of text data and the corresponding class prediction. The rows shown to the data labeler are sorted by uncertainty (lowest probability) or volatility (biggest impact) that way the data labeler is annotating points that will make the biggest difference to the model. The data labeler can:
 - **choose** the category of the specific label
@@ -68,8 +69,7 @@ After each annotation made, the labels appear in a dashboard to the users right,
 
 ## Download
 
-<img width="544" alt="Screen Shot 2022-12-21 at 8 35 41 AM" src="https://user-images.githubusercontent.com/42753347/208917838-24d11961-0abe-48c7-911b-2c89dab6d86a.png">
-
+<img width="805" alt="Screen Shot 2022-12-23 at 2 19 04 PM" src="https://user-images.githubusercontent.com/42753347/209396698-a425ee06-968b-47ca-897b-54a6750a80d2.png">
 
 When you are satisfied with your data labels, you can view specific model metrics as well as download your high quality, labeled training dataset. We use a state of the art decomposer to convert all sorts of unstructured data into spreadsheets, with a column for the predicted label. You can download a CSV of your PDF, DOCX, EMAIL, HTML, SOCIAL MEDIA, or PPTX file.
 
@@ -84,7 +84,7 @@ If your data already has labels, we provide a dashboard to analyze the labels in
 
 ## About
 
-<img width="550" alt="Screen Shot 2022-12-21 at 8 35 58 AM" src="https://user-images.githubusercontent.com/42753347/208917894-2ed3bb42-c0fe-4d2f-a2dd-c68f81bdb196.png">
+<img width="806" alt="Screen Shot 2022-12-23 at 2 19 14 PM" src="https://user-images.githubusercontent.com/42753347/209396710-b8a2997e-3f54-463b-be13-ebfb36d99c68.png">
 
 In the world of data centric AI, data labeling and modeling are often done in conjunction. Oftentimes, your work with Anote may just be the start of your AI and modeling and journey, and as partners we would love to be there for the ride. After the data annotations are complete, we are there to help with model development, and to help you revisit your data label to iterate on your model and improve performance.  For assistance with specific business use cases, and for product concept feedback and suggestions, please contact the Anote team at vidranatan@gmail.com. Below are a few of the common questions we get from customers:
 
