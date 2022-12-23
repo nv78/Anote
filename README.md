@@ -10,11 +10,6 @@ Anote is an AI assisted data labeling tool. The core idea behind the Anote produ
 - **Identify and fix mislabels in structured datasets**
 - **Access new data sources to solve real world AI problems**
 
-<img width="1376" alt="Screen Shot 2022-12-21 at 9 46 57 AM" src="https://user-images.githubusercontent.com/42753347/208932417-ac47ce07-f71d-4774-a3c1-e62681b44012.png">
-
-<img width="1340" alt="Screen Shot 2022-12-21 at 9 51 33 AM" src="https://user-images.githubusercontent.com/42753347/208933468-346f7e7d-197b-4bcb-97e7-1cc065bc9f8e.png">
-
-
 ## Upload
 
 <img width="540" alt="Screen Shot 2022-12-21 at 8 34 03 AM" src="https://user-images.githubusercontent.com/42753347/208917519-68014198-7b53-46b7-b289-50e45ced1d97.png">
