@@ -1,19 +1,8 @@
 # Anote
-<img width="803" alt="Screen_Shot_2022-12-23_at_2 18 21_PM-removebg-preview" src="https://user-images.githubusercontent.com/42753347/209461056-a1ae3693-10e3-44c5-9766-b13612f8e393.png">
-
-<img width="806" alt="Screen_Shot_2022-12-23_at_2 19 14_PM-removebg-preview" src="https://user-images.githubusercontent.com/42753347/209461060-a47ba674-f2d2-4a93-a2f7-f6ab079737f2.png">
-
-<img width="804" alt="Screen_Shot_2022-12-23_at_2 18 49_PM-removebg-preview" src="https://user-images.githubusercontent.com/42753347/209461071-44d2ca04-3d36-46dd-a957-c11167ea4999.png">
-
-<img width="803" alt="Screen_Shot_2022-12-23_at_2 18 35_PM-removebg-preview" src="https://user-images.githubusercontent.com/42753347/209461054-bab6c9e0-ff40-4d28-a88d-c04f8ef2f573.png">
-
-<img width="805" alt="Screen_Shot_2022-12-23_at_2 19 04_PM-removebg-preview" src="https://user-images.githubusercontent.com/42753347/209461047-85d19909-4008-4a92-8a3f-0973ac808f47.png">
-
-<img width="804" alt="Screen_Shot_2022-12-23_at_2 18 57_PM-removebg-preview" src="https://user-images.githubusercontent.com/42753347/209461050-6b317792-d767-43ca-a70d-5ca35ffe669c.png">
 
 ## Overview
 
-<img width="803" alt="Screen Shot 2022-12-23 at 2 18 21 PM" src="https://user-images.githubusercontent.com/42753347/209396598-1c31fc45-9993-4ac9-bfce-6407d396d61a.png">
+<img width="803" alt="Screen_Shot_2022-12-23_at_2 18 21_PM-removebg-preview" src="https://user-images.githubusercontent.com/42753347/209461056-a1ae3693-10e3-44c5-9766-b13612f8e393.png">
 
 Anote is an AI assisted data labeling tool. The core idea behind the Anote product is that as a user, after you label a few data points of text data, we can label the rest. This saves users time and money, while providing users accurate, high quality labeled training data to enable the successful completion of AI projects. To do this, Anote leverages novel technological breakthroughs in NLP and few shot learning to:
 
@@ -23,13 +12,8 @@ Anote is an AI assisted data labeling tool. The core idea behind the Anote produ
 
 ## Upload
 
-<img width="806" alt="Screen_Shot_2022-12-23_at_2 19 14_PM-removebg-preview" src="https://user-images.githubusercontent.com/42753347/209461025-63cd4510-d9cb-4a7f-922c-bb238f8237ce.png">
 
-
-<img width="803" alt="Screen_Shot_2022-12-23_at_2 18 21_PM-removebg-preview" src="https://user-images.githubusercontent.com/42753347/209461013-04767f73-5a7c-4344-84af-f45a169e44d3.png">
-
-
-<img width="803" alt="Screen Shot 2022-12-23 at 2 18 35 PM" src="https://user-images.githubusercontent.com/42753347/209396638-c38fdba5-f6ce-4bcc-bca8-5b9d7890ea24.png">
+<img width="803" alt="Screen_Shot_2022-12-23_at_2 18 35_PM-removebg-preview" src="https://user-images.githubusercontent.com/42753347/209461054-bab6c9e0-ff40-4d28-a88d-c04f8ef2f573.png">
 
 Once you log in, the first step is to upload a new text based dataset. This can be via:
 
@@ -42,7 +26,7 @@ If you don’t have a dataset readily available you can select a preloaded datas
 
 ## Customize
 
-<img width="804" alt="Screen Shot 2022-12-23 at 2 18 49 PM" src="https://user-images.githubusercontent.com/42753347/209396661-ddb5e8bb-6c21-4138-bb29-65a0b67a086e.png">
+<img width="804" alt="Screen_Shot_2022-12-23_at_2 18 49_PM-removebg-preview" src="https://user-images.githubusercontent.com/42753347/209461071-44d2ca04-3d36-46dd-a957-c11167ea4999.png">
 
 Once you have uploaded your dataset or selected a preloaded dataset, the next step is customizing. Here you can choose the task. 
 
@@ -67,7 +51,7 @@ These programmatic labeling functions could also be more complex ontologies that
 
 ## Annotate
 
-<img width="804" alt="Screen Shot 2022-12-23 at 2 18 57 PM" src="https://user-images.githubusercontent.com/42753347/209396675-fea4396a-1f06-4960-810d-7868685835ea.png">
+<img width="804" alt="Screen_Shot_2022-12-23_at_2 18 57_PM-removebg-preview" src="https://user-images.githubusercontent.com/42753347/209461050-6b317792-d767-43ca-a70d-5ca35ffe669c.png">
 
 After creating initial programmatic labeling functions, the next step is to begin annotating. We designed our annotation interface to be as seamless, easy to use and enjoyable as possible, almost like a quizlet for data labeling. The GUI is flexible, able to be modified based upon dataset, document type and task. Here, the data labeler sees a row of text data and the corresponding class prediction. The rows shown to the data labeler are sorted by uncertainty (lowest probability) or volatility (biggest impact) that way the data labeler is annotating points that will make the biggest difference to the model. The data labeler can:
 - **choose** the category of the specific label
@@ -85,7 +69,7 @@ After each annotation made, the labels appear in a dashboard to the users right,
 
 ## Download
 
-<img width="805" alt="Screen Shot 2022-12-23 at 2 19 04 PM" src="https://user-images.githubusercontent.com/42753347/209396698-a425ee06-968b-47ca-897b-54a6750a80d2.png">
+<img width="805" alt="Screen_Shot_2022-12-23_at_2 19 04_PM-removebg-preview" src="https://user-images.githubusercontent.com/42753347/209461047-85d19909-4008-4a92-8a3f-0973ac808f47.png">
 
 When you are satisfied with your data labels, you can view specific model metrics as well as download your high quality, labeled training dataset. We use a state of the art decomposer to convert all sorts of unstructured data into spreadsheets, with a column for the predicted label. You can download a CSV of your PDF, DOCX, EMAIL, HTML, SOCIAL MEDIA, or PPTX file.
 
@@ -100,6 +84,6 @@ If your data already has labels, we provide a dashboard to analyze the labels in
 
 ## About
 
-<img width="806" alt="Screen Shot 2022-12-23 at 2 19 14 PM" src="https://user-images.githubusercontent.com/42753347/209396710-b8a2997e-3f54-463b-be13-ebfb36d99c68.png">
+<img width="806" alt="Screen_Shot_2022-12-23_at_2 19 14_PM-removebg-preview" src="https://user-images.githubusercontent.com/42753347/209461060-a47ba674-f2d2-4a93-a2f7-f6ab079737f2.png">
 
 In the world of data centric AI, data labeling and modeling are often done in conjunction. Oftentimes, your work with Anote may just be the start of your AI and modeling and journey, and as partners we would love to be there for the ride. After the data annotations are complete, we are there to help with model development, and to help you revisit your data label to iterate on your model and improve performance.  For assistance with specific business use cases, and for product feedback, please contact the Anote team at vidranatan@gmail.com.
