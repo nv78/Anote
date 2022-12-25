@@ -1,4 +1,15 @@
 # Anote
+<img width="803" alt="Screen_Shot_2022-12-23_at_2 18 21_PM-removebg-preview" src="https://user-images.githubusercontent.com/42753347/209461056-a1ae3693-10e3-44c5-9766-b13612f8e393.png">
+
+<img width="806" alt="Screen_Shot_2022-12-23_at_2 19 14_PM-removebg-preview" src="https://user-images.githubusercontent.com/42753347/209461060-a47ba674-f2d2-4a93-a2f7-f6ab079737f2.png">
+
+<img width="804" alt="Screen_Shot_2022-12-23_at_2 18 49_PM-removebg-preview" src="https://user-images.githubusercontent.com/42753347/209461071-44d2ca04-3d36-46dd-a957-c11167ea4999.png">
+
+<img width="803" alt="Screen_Shot_2022-12-23_at_2 18 35_PM-removebg-preview" src="https://user-images.githubusercontent.com/42753347/209461054-bab6c9e0-ff40-4d28-a88d-c04f8ef2f573.png">
+
+<img width="805" alt="Screen_Shot_2022-12-23_at_2 19 04_PM-removebg-preview" src="https://user-images.githubusercontent.com/42753347/209461047-85d19909-4008-4a92-8a3f-0973ac808f47.png">
+
+<img width="804" alt="Screen_Shot_2022-12-23_at_2 18 57_PM-removebg-preview" src="https://user-images.githubusercontent.com/42753347/209461050-6b317792-d767-43ca-a70d-5ca35ffe669c.png">
 
 ## Overview
 
@@ -11,6 +22,11 @@ Anote is an AI assisted data labeling tool. The core idea behind the Anote produ
 - **Access new data sources to solve real world AI problems**
 
 ## Upload
+
+<img width="806" alt="Screen_Shot_2022-12-23_at_2 19 14_PM-removebg-preview" src="https://user-images.githubusercontent.com/42753347/209461025-63cd4510-d9cb-4a7f-922c-bb238f8237ce.png">
+
+
+<img width="803" alt="Screen_Shot_2022-12-23_at_2 18 21_PM-removebg-preview" src="https://user-images.githubusercontent.com/42753347/209461013-04767f73-5a7c-4344-84af-f45a169e44d3.png">
 
 
 <img width="803" alt="Screen Shot 2022-12-23 at 2 18 35 PM" src="https://user-images.githubusercontent.com/42753347/209396638-c38fdba5-f6ce-4bcc-bca8-5b9d7890ea24.png">
