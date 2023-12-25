@@ -11,10 +11,10 @@ Here are a few demo videos of the Anote platform:
 * Classifying Structured Text Data: https://www.youtube.com/watch?v=vWEO14nA36A
 
 Here are some relevant links for additional context:
-Website: https://anote.ai/
-Documentation: https://docs.anote.ai/
-Pitch Deck: https://drive.google.com/file/d/1ca4BPNsJebp6uspDMJlh1EoNfWv6WeOv/view?usp=sharing
-TED Talk: https://www.youtube.com/watch?v=7I_pBLjMNzs
+* Website: https://anote.ai/
+* Documentation: https://docs.anote.ai/
+* Pitch Deck: https://drive.google.com/file/d/1ca4BPNsJebp6uspDMJlh1EoNfWv6WeOv/view?usp=sharing
+* TED Talk: https://www.youtube.com/watch?v=7I_pBLjMNzs
 
 ## Overview
 
