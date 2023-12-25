@@ -1,5 +1,21 @@
 # Anote
 
+Anote is an artificial intelligence startup in New York City that makes sense of unstructured data via improving AI models for classification, named entity recognition and question answering tasks to make them more accurate and domain specific. To do this, the Anote platform actively learns from human feedback to make AI algorithms like GPT-4, Bard and Claude and techniques like RLHF, Fine-Tuning and RAG, perform better for specific use cases over time. Over time, we are able to provide more tailored answers to questions, category predictions and entities found because our platform enables AI models to actively learn and rapidly improve from the knowledge of domain specific subject matter experts.
+
+On the Anote platform, users can upload unstructured data like PDFs, TXTs, DOCXs, PPTXs, scrape HTML files from websites, or upload structured data like CSVs. Users can connect to any dataset on the hugging face dataset hub, or integrate with external data sources like Reddit, S3, Notion, Asana, Github, Snowflake, Twitter. After the user customizes their requirements (adding the questions, categories or entities they care about), the AI model is able to actively learn from people with just a few interventions to improve model performance (think hundreds of rows labeled, rather than millions required for re-training LLMs). Users can download the resulting CSV of actual and predicted results, as well as export the updated AI model to make real-time, improved model inference and predictions via the call of an API.
+
+Here are a few demo videos of the Anote platform:
+* Q&A on Legal Contracts: https://www.youtube.com/watch?v=ThI1eGLGzQY
+* Summarizing Medical Charts: https://www.youtube.com/watch?v=uEdOMLIzm24
+* Classifying Violent Tweets: https://www.youtube.com/watch?v=pPqQVDxxUvE
+* Classifying Structured Text Data: https://www.youtube.com/watch?v=vWEO14nA36A
+
+Here are some relevant links for additional context:
+Website: https://anote.ai/
+Documentation: https://docs.anote.ai/
+Pitch Deck: https://drive.google.com/file/d/1ca4BPNsJebp6uspDMJlh1EoNfWv6WeOv/view?usp=sharing
+TED Talk: https://www.youtube.com/watch?v=7I_pBLjMNzs
+
 ## Overview
 
 <img width="803" alt="Screen_Shot_2022-12-23_at_2 18 21_PM-removebg-preview" src="https://user-images.githubusercontent.com/42753347/209461056-a1ae3693-10e3-44c5-9766-b13612f8e393.png">
@@ -87,137 +103,3 @@ If your data already has labels, we provide a dashboard to analyze the labels in
 <img width="806" alt="Screen_Shot_2022-12-23_at_2 19 14_PM-removebg-preview" src="https://user-images.githubusercontent.com/42753347/209461060-a47ba674-f2d2-4a93-a2f7-f6ab079737f2.png">
 
 In the world of data centric AI, data labeling and modeling are often done in conjunction. Oftentimes, your work with Anote may just be the start of your AI and modeling and journey, and as partners we would love to be there for the ride. After the data annotations are complete, we are there to help with model development, and to help you revisit your data label to iterate on your model and improve performance.  For assistance with specific business use cases, and for product feedback, please contact the Anote team at vidranatan@gmail.com.
-
-
-Anote is an artificial intelligence startup in New York City.
-
-Website: https://anote.ai/
-Documentation: https://docs.anote.ai/
-Pitch Deck:
-TED Talk:
-
-- Benchmarking Text Classification
-- Benchmarking Question and Answering
-- Benchmarking Named Entity Recognition
-- Anote API Documentation and Examples
-    - Examples in documentation -> but in code
-- Building Your Own Fine Tuned Private GPT
-    - How to build you own chatGPT
-        - tutorial on the steps needed
-        - streamlit code of low-fi prototype
-    - Fine Tuned Chat With Your Documents Examples
-        - Comparison of GPT outputs vs. fine tuned outputs
-    - Workflows Documentation and Examples
-        - Financial Reports
-        - Government Proposals
-    - Research on Private LLMs, and how to run models securely without sharing data
-        - tutorial on the steps needed
-        - flow chart of how it works
-- Anote Research Papers and Literature
-    - Classification Research Paper
-    - Competitor Analysis Presentation
-    - Chat With Your Documents 10-K Presentation
-
-What is Anote?
-
-The Anote platform actively learns from human feedback to make AI algorithms like GPT-4, Bard and Claude and techniques like RLHF, Fine-Tuning and RAG, perform better for specific use cases over time. Over time, we are able to provide more tailored answers to questions, category predictions and entities found because our platform enables AI models to actively learn and rapidly improve from the knowledge of domain specific subject matter experts.
-
-
-On the Anote platform, users can upload unstructured data like PDFs, TXTs, DOCXs, PPTXs, scrape HTML files from websites, or upload structured data like CSVs. Users can connect to any dataset on the hugging face dataset hub, or integrate with external data sources like Reddit, S3, Notion, Asana, Github, Snowflake, Twitter. After the user customizes their requirements (adding the questions, categories or entities they care about), the AI model is able to actively learn from people with just a few interventions to improve model performance (think hundreds of rows labeled, rather than millions required for re-training LLMs). Users can download the resulting CSV of actual and predicted results, as well as export the updated AI model to make real-time, improved model inference and predictions via the call of an API.
-
-How does the product work?
-
-Here are a few demo videos of Anote, so your team could get a better sense of the platform:
-* Q&A on Legal Contracts: https://www.youtube.com/watch?v=ThI1eGLGzQY
-* Summarizing Medical Charts: https://www.youtube.com/watch?v=uEdOMLIzm24
-* Classifying Violent Tweets: https://www.youtube.com/watch?v=pPqQVDxxUvE
-* Classifying Structured Text Data: https://www.youtube.com/watch?v=vWEO14nA36A
-Here is a talk we gave a few months ago that covers some of the theory behind Anote:
-https://www.youtube.com/watch?v=7I_pBLjMNzs
-
-What are applications that Anote can help with?
-Here are some the use cases that we have already tackled today using this technology
-
-* Question and Answering:
-    * Summarizing Medical Charts in txt documents in Healthcare
-    * Answering Questions on Case Studies in pdfs in Legal Tech
-    * Answering Questions to Extract information on 10-Ks in Finance
-* Text Classification:
-    * Accurately categorizing text data in CSVs in Ad Tech,
-    * Accurately tagging data in spreadsheets in Social Media Analytics
-    * Accurately classifying text data in CSVs in Competitor intelligence
-* Named Entity Recognition:
-    * Extracting the names of vessels in websites in Maritime,
-    * Extracting medical terminology in unstructured data in Healthcare
-    * Extracting information from raw unstructured websites in E-commerce
-
-What capabilities does Anote support?
-
-As far as standard capabilities (also common amongst some existing tools), we support document classification, sentiment analysis, hierarchical classification, multi-column hierarchical classification, programmatic labeling, identifying and fixing label errors for classification, and question answering for data validation, interactive dashboards, ner, advanced ner capabilities (via code), annotator-admin-reviewer collaboration, annotation history, review mode, annotator metrics, summarization, semi-structured prompting, question and answering, and recomposition. A few existing tools also do few shot classification, few shot named entity recognition, few shot question and answering. What makes Anote unique is that we are comprehensive in that we support all of these capabilities, rendered with a UI.
-
-
-Anote is an artificial intelligence startup in New York City.
-
-Website: https://anote.ai/
-Documentation: https://docs.anote.ai/
-Pitch Deck:
-TED Talk:
-
-- Benchmarking Text Classification
-- Benchmarking Question and Answering
-- Benchmarking Named Entity Recognition
-- Anote API Documentation and Examples
-    - Examples in documentation -> but in code
-- Building Your Own Fine Tuned Private GPT
-    - How to build you own chatGPT
-        - tutorial on the steps needed
-        - streamlit code of low-fi prototype
-    - Fine Tuned Chat With Your Documents Examples
-        - Comparison of GPT outputs vs. fine tuned outputs
-    - Workflows Documentation and Examples
-        - Financial Reports
-        - Government Proposals
-    - Research on Private LLMs, and how to run models securely without sharing data
-        - tutorial on the steps needed
-        - flow chart of how it works
-- Anote Research Papers and Literature
-    - Classification Research Paper
-    - Competitor Analysis Presentation
-    - Chat With Your Documents 10-K Presentation
-
-What is Anote?
-
-The Anote platform actively learns from human feedback to make AI algorithms like GPT-4, Bard and Claude and techniques like RLHF, Fine-Tuning and RAG, perform better for specific use cases over time. Over time, we are able to provide more tailored answers to questions, category predictions and entities found because our platform enables AI models to actively learn and rapidly improve from the knowledge of domain specific subject matter experts.
-
-
-On the Anote platform, users can upload unstructured data like PDFs, TXTs, DOCXs, PPTXs, scrape HTML files from websites, or upload structured data like CSVs. Users can connect to any dataset on the hugging face dataset hub, or integrate with external data sources like Reddit, S3, Notion, Asana, Github, Snowflake, Twitter. After the user customizes their requirements (adding the questions, categories or entities they care about), the AI model is able to actively learn from people with just a few interventions to improve model performance (think hundreds of rows labeled, rather than millions required for re-training LLMs). Users can download the resulting CSV of actual and predicted results, as well as export the updated AI model to make real-time, improved model inference and predictions via the call of an API.
-
-How does the product work?
-
-Here are a few demo videos of Anote, so your team could get a better sense of the platform:
-* Q&A on Legal Contracts: https://www.youtube.com/watch?v=ThI1eGLGzQY
-* Summarizing Medical Charts: https://www.youtube.com/watch?v=uEdOMLIzm24
-* Classifying Violent Tweets: https://www.youtube.com/watch?v=pPqQVDxxUvE
-* Classifying Structured Text Data: https://www.youtube.com/watch?v=vWEO14nA36A
-Here is a talk we gave a few months ago that covers some of the theory behind Anote:
-https://www.youtube.com/watch?v=7I_pBLjMNzs
-
-What are applications that Anote can help with?
-Here are some the use cases that we have already tackled today using this technology
-
-* Question and Answering:
-    * Summarizing Medical Charts in txt documents in Healthcare
-    * Answering Questions on Case Studies in pdfs in Legal Tech
-    * Answering Questions to Extract information on 10-Ks in Finance
-* Text Classification:
-    * Accurately categorizing text data in CSVs in Ad Tech,
-    * Accurately tagging data in spreadsheets in Social Media Analytics
-    * Accurately classifying text data in CSVs in Competitor intelligence
-* Named Entity Recognition:
-    * Extracting the names of vessels in websites in Maritime,
-    * Extracting medical terminology in unstructured data in Healthcare
-    * Extracting information from raw unstructured websites in E-commerce
-
-What capabilities does Anote support?
-
-As far as standard capabilities (also common amongst some existing tools), we support document classification, sentiment analysis, hierarchical classification, multi-column hierarchical classification, programmatic labeling, identifying and fixing label errors for classification, and question answering for data validation, interactive dashboards, ner, advanced ner capabilities (via code), annotator-admin-reviewer collaboration, annotation history, review mode, annotator metrics, summarization, semi-structured prompting, question and answering, and recomposition. A few existing tools also do few shot classification, few shot named entity recognition, few shot question and answering. What makes Anote unique is that we are comprehensive in that we support all of these capabilities, rendered with a UI.
