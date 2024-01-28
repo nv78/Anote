@@ -1,3 +1,5 @@
+# ZERO SHOT SENTIMENT ANALYSIS
+
 from anote import predict
 
 API_KEY = "aaae81afd4872a53b1ee884e50b8c422a"
