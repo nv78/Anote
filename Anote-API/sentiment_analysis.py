@@ -25,10 +25,5 @@ for review in REVIEWS:
 
 print(PREDICTIONS)
 """
-Output:
-positive
-negative
-positive
-neutral
-positive
+Output: ["positive", "negative", "positive", "neutral", "positive"]
 """

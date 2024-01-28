@@ -30,8 +30,5 @@ for document in DOCUMENTS:
     )
 print(PREDICTIONS)
 """
-Output:
-Litigation
-Regulatory
-Legal Opinions
+Output: ["Litigation", "Regulatory", "Legal Opinions"]
 """
