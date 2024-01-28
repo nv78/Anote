@@ -65,6 +65,7 @@ PREDICTIONS = []
 for row in TEST_EXAMPLES:
     PREDICTIONS = predict(
         categories=CATEGORIES,
+        examples=EXAMPLES,
         text=row
     )
 
