@@ -7,19 +7,12 @@ directory_path = '/data/10-KS/'
 
 files = glob.glob(directory_path + '*')
 
-CATEGORIES = [
-    "Contracts",
-    "Regulatory",
-    "Litigation",
-    "Legal Opinions"
-]
-
 DOCUMENTS = []
 
 for file in files:
     text = upload(
         file=file,
-        decomposition="PER_DOCUMENT"
+        decomposition="PER_LINE"
     )
     DOCUMENTS.append(text)
 
