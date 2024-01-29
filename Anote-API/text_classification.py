@@ -1,4 +1,5 @@
 # FEW SHOT TEXT CLASSIFICATION
+# EXAMPLE STYLE: https://spacy.io/universe/project/classyclassification
 
 from anote import predict
 import pandas as pd
@@ -65,11 +66,11 @@ TEST_EXAMPLES = [
 
 PREDICTIONS = []
 for row in TEST_EXAMPLES:
-    PREDICTIONS = predict(
+    PREDICTIONS.append(predict(
         categories=CATEGORIES,
         examples=EXAMPLES,
         text=row
-    )
+    ))
 
 print(PREDICTIONS)
 """

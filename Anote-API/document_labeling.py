@@ -26,10 +26,10 @@ for file in files:
 
 PREDICTIONS = []
 for document in DOCUMENTS:
-    PREDICTIONS = predict(
+    PREDICTIONS.append(predict(
         categories=CATEGORIES,
         text=document
-    )
+    ))
 print(PREDICTIONS)
 """
 Output: ["Litigation", "Regulatory", "Legal Opinions"]

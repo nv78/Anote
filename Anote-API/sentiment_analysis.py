@@ -20,10 +20,10 @@ REVIEWS = [
 
 PREDICTIONS = []
 for review in REVIEWS:
-    PREDICTIONS = predict(
+    PREDICTIONS.append(predict(
         categories=CATEGORIES,
         text=review
-    )
+    ))
 
 print(PREDICTIONS)
 """

@@ -50,11 +50,11 @@ Text:
 
 PREDICTIONS = []
 for row in TEXT:
-    PREDICTIONS = predict(
+    PREDICTIONS.append(predict(
         categories=CATEGORIES,
         text=row,
         hierarchical=True
-    )
+    ))
 
 print(PREDICTIONS)
 """
