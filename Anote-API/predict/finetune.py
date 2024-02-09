@@ -74,7 +74,7 @@ training_args = TrainingArguments(
 
 
 
-class BERT():
+class BERT:
     def __init__(self,train_dataset,eval_dataset):
         """
         Initializes a BERT-based sequence classifier.
