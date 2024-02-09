@@ -3,12 +3,8 @@ import requests
 import pandas as pd
 from io import StringIO
 
-def tokenize(
-    content: str,
-):
-    return content.split('\n')
 
-def decompose(
+def upload(
     file,
     local: bool = True,
     document: bool = True,
@@ -33,7 +29,7 @@ def decompose(
     """
     if document == True:
         if isHTML == True:
-            return get_text_from_url(file)
+            return _get_text_from_url(file)
         # Document based decomposition
         if local == True:
             # LOCAL DIRECTORY
@@ -61,7 +57,7 @@ def decompose(
             else:
                 # LOCAL DIRECTORY
                 result = p.from_buffer(file)
-                text_list = tokenize(result["content"])
+                text_list = _tokenize(result["content"])
                 while("" in text_list):
                     text_list.remove("")
                 clean_text_list = []
@@ -76,12 +72,17 @@ def decompose(
             # WEB URL
             response = requests.get(file)
             result = p.from_buffer(response.content)
-            text_list = tokenize(result["content"])
+            text_list = _tokenize(result["content"])
             while("" in text_list):
                 text_list.remove("")
             return text_list
+        
+def _tokenize(
+    content: str,
+):
+    return content.split('\n')
 
-def parse_actual_labels_from_csv(
+def _parse_actual_labels_from_csv(
     fileBytes,
     hasHeader,
     labelColIndex,
@@ -95,7 +96,7 @@ def parse_actual_labels_from_csv(
     df = df.iloc[: , labelColIndex]
     return df.values.tolist()
 
-def get_text_from_url(
+def _get_text_from_url(
     web_url
 ):
     response = requests.get(web_url)

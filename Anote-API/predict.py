@@ -1,10 +1,18 @@
 
 import sys
+import os 
+
+current_dir = os.path.dirname(__file__)
+grandparent_dir = os.path.abspath(os.path.join(current_dir, './predict'))
+sys.path.append(grandparent_dir)
+
 from classify import classify_document
 from extract import extract_information
 from answer import answer_question
 from finetune import fine_tune_model
 from rag import generate_rag_response
+
+
 
 def predict(task_type, input_data, private=False, examples=None):
     if task_type == "classify":
