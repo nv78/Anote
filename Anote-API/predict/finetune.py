@@ -22,7 +22,7 @@ class DataLoader(Dataset):
     def __len__(self):
         """
         Returns the number of data items in the dataset.
-        """        
+        """
         return len(self.labels)
 
 
@@ -82,8 +82,8 @@ class BERT:
             train_dataset (pandas.DataFrame): Training dataset containing 'text' and 'label' columns.
             eval_dataset (pandas.DataFrame): Evaluation dataset containing 'text' and 'label' columns.
         """
-        self.tokenizer = BertTokenizerFast.from_pretrained("bert-base-uncased", max_length=512)    
-        
+        self.tokenizer = BertTokenizerFast.from_pretrained("bert-base-uncased", max_length=512)
+
         self.train_encodings = self.tokenizer(train_dataset['text'].to_list(), truncation=True, padding=True)
         self.eval_encodings = self.tokenizer(eval_dataset['text'].to_list(), truncation=True, padding=True)
 
@@ -99,7 +99,7 @@ class BERT:
         self.eval_dataloader = DataLoader(self.eval_encodings,self.eval_labels)
 
 
-        self.fine_tune_bert = self.fine_tuning() 
+        self.fine_tune_bert = self.fine_tuning()
 
     def fine_tuning(self):
         self.trainer = Trainer(
@@ -119,19 +119,19 @@ class BERT:
         self.metrics = self.trainer.evaluate()
 
         return self.ft_model, self.metrics
-    
+
 
     def model_evaluation(self):
         self.acc = self.metrics['eval_Accuracy']
         self.precision = self.metrics['eval_Precision']
         self.recall = self.recall['eval_Recall']
 
-        return self.acc , self.precision, self.recall 
-   
+        return self.acc , self.precision, self.recall
 
-      
+
+
     def prediction(self,texts):
-        
+
 
         self.inputs = self.tokenizer(texts, padding=True, truncation=True, return_tensors='pt')
 
@@ -145,25 +145,4 @@ class BERT:
         # Convert predicted label IDs to labels
         predicted_labels = [self.outputs.config.id2label[label_id] for label_id in predicted_label_ids]
 
-        return predicted_labels 
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
+        return predicted_labels

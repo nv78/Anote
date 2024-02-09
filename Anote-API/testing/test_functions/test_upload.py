@@ -1,4 +1,11 @@
 import pytest
+import os
+import sys
+
+current_dir = os.path.dirname(__file__)
+grandparent_dir = os.path.abspath(os.path.join(current_dir, '../../'))
+sys.path.append(grandparent_dir)
+
 from upload import tokenize, decompose, parse_actual_labels_from_csv, get_text_from_url
 
 # Dummy test data for the test cases
@@ -27,9 +34,9 @@ def test_parse_actual_labels_from_csv():
 # Test Case 4: Test get_text_from_url function
 def test_get_text_from_url():
     text = get_text_from_url(SAMPLE_TEXT_URL)
-    assert "sample text content" in text
+    assert "This domain is for use" in text
 
 # Test Case 5: Test decompose function for remote HTML document
 def test_decompose_remote_html():
     result = decompose(SAMPLE_HTML_URL, local=False, document=True, isHTML=True)
-    assert "sample HTML content" in result
+    assert "This domain is for use" in result
