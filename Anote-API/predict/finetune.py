@@ -74,9 +74,9 @@ class FT_BERT:
         """ Initializes a BERT-based sequence classifier.
 
         Args:
-            train_dataset (pandas.DataFrame): Training dataset containing 'text' and 'label' columns. 
+            train_dataset (pandas.DataFrame): Training dataset containing 'text' and 'label' columns.
                 The 'label' column must contain string values.
-            eval_dataset (pandas.DataFrame): Evaluation dataset containing 'text' and 'label' columns. 
+            eval_dataset (pandas.DataFrame): Evaluation dataset containing 'text' and 'label' columns.
                 The 'label' column must contain string values.
 
         Example:
@@ -168,7 +168,7 @@ class FT_BERT:
 
 
     def prediction(self,texts):
-        # Text must be an array 
+        # Text must be an array
 
 
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -184,8 +184,6 @@ class FT_BERT:
 
         # Get predicted label IDs
         predicted_label_ids = torch.argmax(self.outputs.logits, dim=1).tolist()
-
-
 
         return predicted_label_ids
 
