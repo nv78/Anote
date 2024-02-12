@@ -45,23 +45,23 @@ def compute_metrics(pred):
         'Recall': recall
     }
 
-training_args = TrainingArguments(
-    output_dir='./BERTModel2',
-    do_train=True,
-    do_eval=True,
-    num_train_epochs=1,  # Reduced number of epochs.
-    per_device_train_batch_size=5,  # Reduced batch size for training.
-    per_device_eval_batch_size=20,  # Reduced batch size for evaluation.
-    warmup_steps=50,
-    weight_decay=0.01,
-    logging_strategy='steps',
-    logging_dir='./multi-class-logs',
-    logging_steps=50,
-    evaluation_strategy="steps",
-    eval_steps=50,
-    save_strategy="steps",
-    fp16=True,  # Enable mixed precision training.
-)
+# training_args = TrainingArguments(
+#     output_dir='./BERTModel2',
+#     do_train=True,
+#     do_eval=True,
+#     num_train_epochs=1,  # Reduced number of epochs.
+#     per_device_train_batch_size=5,  # Reduced batch size for training.
+#     per_device_eval_batch_size=20,  # Reduced batch size for evaluation.
+#     warmup_steps=50,
+#     weight_decay=0.01,
+#     logging_strategy='steps',
+#     logging_dir='./multi-class-logs',
+#     logging_steps=50,
+#     evaluation_strategy="steps",
+#     eval_steps=50,
+#     save_strategy="steps",
+#     fp16=True,  # Enable mixed precision training.
+# )
 
 
 ########################################################################################################################################################
@@ -186,6 +186,3 @@ class FT_BERT:
         predicted_label_ids = torch.argmax(self.outputs.logits, dim=1).tolist()
 
         return predicted_label_ids
-
-
-

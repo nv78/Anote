@@ -11,13 +11,16 @@ import time
 import anthropic
 from anthropic import Anthropic, HUMAN_PROMPT, AI_PROMPT
 
-def generate_answers(question, context, model_type="question-answering", private=False):
+def generate_answers(question,
+                     context,
+                     model_type="Claude",
+                     private=False):
     if model_type == "question-answering":
         model_name = "bert-large-uncased-whole-word-masking-finetuned-squad"
     elif model_type == "custom_qa":
         model_name = "your-custom-qa-model"  # Replace with your custom QA model
     else:
-        raise ValueError("Invalid model_type. Supported types: question-answering, custom_qa")
+        raise ValueError("Invalid model_type. Supported types: Claude, GPT, Llama2, GPT4All")
 
     # Initialize QA pipeline with the chosen model
     qa_generator = pipeline("question-answering", model=model_name)
@@ -25,18 +28,18 @@ def generate_answers(question, context, model_type="question-answering", private
     # Generate answers to the question given the context
     answers = qa_generator(question=question, context=context)
 
-    
+
     if private:
         # Perform private answer generation logic here if needed
 
-        
+
         pass
 
 
-    if model_type == 'GPT': 
+    if model_type == 'GPT':
         openai.api_key = "Enter Your Api Key"
         system_content = "You are a factual chatbot that answers questions about 10-K documents. You only answer with answers you find in the text, no outside information."
-        
+
         output = []
 
         for question in questions:
@@ -52,9 +55,9 @@ def generate_answers(question, context, model_type="question-answering", private
 
             output.append(completion.choices[0].message.content)
 
-    elif model_type == 'Claude': 
+    elif model_type == 'Claude':
         claude_key = "Enter API Key"
-        
+
         formatted_examples = [f"<answer> {example['answer']} </answer>" for example in examples]
 
 
@@ -78,12 +81,3 @@ def generate_answers(question, context, model_type="question-answering", private
             output.append(completion.completion)
 
     return output
-
-
-
-
-
-
-
-
-    return answers
