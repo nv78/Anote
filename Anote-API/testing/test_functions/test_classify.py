@@ -15,3 +15,9 @@ def test_sentiment_analysis(review, expected_sentiment):
     actual_sentiment = predict(categories=CATEGORIES, text=review)
 
     assert actual_sentiment == expected_sentiment
+
+
+def test_bert():
+
+    predict(modeltype = "BERT", categories="", text="")
+    pass
