@@ -14,7 +14,7 @@ from predict import predict
 import pytest
 
 # Use the pytest.mark.parametrize decorator on the test function
-@pytest.mark.parametrize("review, expected_sentiment", [
+""" @pytest.mark.parametrize("review, expected_sentiment", [
     ("This movie was absolutely fantastic! Highly recommended.", "positive"),
     ("I was disappointed with the plot and acting.", "negative"),
     ("The cinematography in this film is breathtaking.", "positive"),
@@ -34,5 +34,17 @@ def sentiment_analysis(review, expected_sentiment):
 
     assert actual_sentiment == expected_sentiment 
     print("Test Passed!") 
+ """
 
-
+@pytest.mark.parametrize("review, expected_sentiment", [
+    ("This movie was absolutely fantastic! Highly recommended.", "positive"),
+    ("I was disappointed with the plot and acting.", "negative"),
+    ("The cinematography in this film is breathtaking.", "positive"),
+    ("Mediocre movie, nothing special.", "neutral"),
+    ("The performances were outstanding.", "positive"),
+])
+def test_sentiment_analysis(review, expected_sentiment):
+    # Assuming predict is a function you've defined or imported elsewhere
+    actual_sentiment = predict(task_type='classify', categories=["positive", "negative", "neutral"], input_data=review)
+    
+    assert actual_sentiment == expected_sentiment, f"Expected {expected_sentiment}, got {actual_sentiment}"
