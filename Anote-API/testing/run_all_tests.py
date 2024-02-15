@@ -6,5 +6,5 @@ def run_all_tests():
     pytest.main(['test_evaluate.py'])  # Add more test files as needed
     pytest.main(['test_sentiment_analysis.py'])  # Add more test files as needed
 
-# if __name__ == "__main__":
-#     run_all_tests()
+if __name__ == "__main__":
+    run_all_tests()
