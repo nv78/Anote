@@ -1,191 +1,90 @@
-import torch
-from transformers import BertTokenizerFast, BertForSequenceClassification, TrainingArguments, Trainer
-from torch.utils.data import Dataset
-from sklearn.metrics import accuracy_score, precision_recall_fscore_support
+import json
+import pandas as pd
+import os
+
+import time
+
+from dotenv import load_dotenv
 
 
-# FTING BERT
+load_dotenv()
 
-class DataLoader(Dataset):
-    def __init__(self, encodings, labels):
-        self.encodings = encodings
-        self.labels = labels
-    def __getitem__(self, idx):
-        """
-          This construct a dict that is (index position) to encoding pairs.
-          Where the Encoding becomes tensor(Encoding), which is an requirements
-          for training the model
-        """
-        item = {key: torch.tensor(val[idx]) for key, val in self.encodings.items()}
-        item['labels'] = torch.tensor(self.labels[idx])
-        return item
-    def __len__(self):
-        """
-        Returns the number of data items in the dataset.
-        """
-        return len(self.labels)
+# Get the API key from the environment
+api_key = os.getenv("OPENAI_API_KEY")
+
+# Initialize OpenAI client with the API key
+client = OpenAI(api_key=api_key)
+
+# -- Now we can get to it
+from openai import OpenAI
 
 
+def ClassificationJson(data,filename,categories):
+    """
+    Converts a given dataset into a JSON Lines (JSONL) file suitable for OpenAI's GPT-3.5 turbo model.
+    
+    Args:
+        data (DataFrame or similar data structure): Input data containing text and labels.
 
-def compute_metrics(pred):
-    # Extract true labels from the input object
-    labels = pred.label_ids
-    # Obtain predicted class labels by finding the column index with the maximum probability
-    preds = pred.predictions.argmax(-1)
-    # Compute macro precision, recall, and F1 score using sklearn's precision_recall_fscore_support function
-    precision, recall, f1, _ = precision_recall_fscore_support(labels, preds, average='macro',zero_division=1)
-    # Calculate the accuracy score using sklearn's accuracy_score function
-    acc = accuracy_score(labels, preds)
+    The function processes the input data row by row, constructing conversations for each row with a system message, user message, and an assistant message. It then writes the generated conversation data to a JSONL file.
+ 
+    """
+    # Initialize an empty list to store conversation data
+    message_list = []
 
-    # Return the computed metrics as a dictionary
-    return {
-        'Accuracy': acc,
-        'F1': f1,
-        'Precision': precision,
-        'Recall': recall
-    }
+    # Iterate through the rows in the input data
+    for _, row in data.iterrows():
+        # Create a system message as an initial instruction
+        system_message = {
+            "role": "system",
+            "content": f"given the following text: find the category in: {categories} that is most closely associated with it. Return only the category name only in following format"
+        }
 
-training_args = TrainingArguments(
-    output_dir='./BERTModel2',
-    do_train=True,
-    do_eval=True,
-    num_train_epochs=1,  # Reduced number of epochs.
-    per_device_train_batch_size=5,  # Reduced batch size for training.
-    per_device_eval_batch_size=20,  # Reduced batch size for evaluation.
-    warmup_steps=50,
-    weight_decay=0.01,
-    logging_strategy='steps',
-    logging_dir='./multi-class-logs',
-    logging_steps=50,
-    evaluation_strategy="steps",
-    eval_steps=50,
-    save_strategy="steps",
-    fp16=True,  # Enable mixed precision training.
-)
+        # Append the system message to the conversation
+        message_list.append({"messages": [system_message]})
 
+        # Create a user message based on the 'text' column from the data
+        user_message = {
+            "role": "user",
+            "content": f"{row['question']}"
+        }
 
-########################################################################################################################################################
+        # Append the user message to the conversation
+        message_list[-1]["messages"].append(user_message)
 
+        # Create an assistant message based on the 'coarse_label' column from the data
+        assistant_message = {
+            "role": 'assistant',
+            "content": row['actual']
+        }
 
+        # Append the assistant message to the conversation
+        message_list[-1]["messages"].append(assistant_message)
 
-
-class FT_BERT:
-    def __init__(self,train_dataset,eval_dataset,num_labels):
-        """ Initializes a BERT-based sequence classifier.
-
-        Args:
-            train_dataset (pandas.DataFrame): Training dataset containing 'text' and 'label' columns.
-                The 'label' column must contain string values.
-            eval_dataset (pandas.DataFrame): Evaluation dataset containing 'text' and 'label' columns.
-                The 'label' column must contain string values.
-
-        Example:
-            ```python
-            # Initialize FTING BERT classifier
-            BERT = Fine_Tuning_BERT(train_df, test_df, num_labels=5)
-
-            # Texts for prediction
-            texts =  ["this product is trash"]
-
-            # Once BERT finishes fine-tuning, you can call the .prediction method with an array of texts
-            predicted_class = BERT.prediction(texts=texts)
-            print(predicted_class) """
+    # Write the conversation data to a JSON Lines (JSONL) file
+    with open(filename, "w") as json_file:
+        for message in message_list:
+            # Serialize the conversation data to JSON and write it to the file
+            json.dump(message, json_file)
+            json_file.write("\n")
 
 
-        self.tokenizer = BertTokenizerFast.from_pretrained("bert-base-uncased", max_length=512)
-
-        self.train_encodings = self.tokenizer(train_dataset['text'].to_list(), truncation=True, padding=True)
-        self.eval_encodings = self.tokenizer(eval_dataset['text'].to_list(), truncation=True, padding=True)
-
-        self.train_labels = train_dataset.labels.to_list()
-        self.eval_labels = eval_dataset.labels.to_list()
-
-
-        self.train_labels = []
-        for label in train_dataset.labels.to_list():
-          if isinstance(label, str):
-            self.train_labels.append(label)
-          else:
-            raise ValueError("All labels in train_dataset.labels must be strings.")
-
-        self.eval_labels = []
-        for label in eval_dataset.labels.to_list():
-          if isinstance(label, str):
-            self.eval_labels.append(label)
-          else:
-            raise ValueError("All labels in eval_dataset.labels must be strings.")
+def fine_tune_model(model_id,pandas_df):
+    df = pandas_df
+    filename = f'ft_model.jsonl'
+    text_to_openai_json(df, filename)
+    loader = client.files.create(file=open(filename, "rb"), purpose='fine-tune')
+    fine_tuning_job = client.fine_tuning.jobs.create(training_file=loader.id, model="gpt-3.5-turbo-1106")
+    return fine_tuning_job.id
 
 
-        self.all_labels = self.eval_labels + self.train_labels
-
-        print(self.all_labels)
-
-        self.id_to_label = {idx: label for idx, label in enumerate(set(self.all_labels))}
-        self.label_to_id = {label: idx for idx, label in self.id_to_label.items()}
-
-
-        self.train_labels = [self.label_to_id[label] for label in self.train_labels]
-
-        self.eval_labels = [self.label_to_id[label] for label in self.eval_labels]
-
-        self.model = BertForSequenceClassification.from_pretrained('bert-base-uncased', num_labels = 5 , id2label =  self.id_to_label, label2id =  self.label_to_id)
-
-
-
-        self.train_dataloader = DataLoader(self.train_encodings,self.train_labels)
-        self.eval_dataloader = DataLoader(self.eval_encodings,self.eval_labels)
-
-
-        self.fine_tune_bert = self.fine_tuning()
-
-    def fine_tuning(self):
-        self.trainer = Trainer(
-            #the pre-trained bert model that will be fine-tuned
-            model=self.model,
-            #training arguments that we defined above
-            args=training_args,
-            train_dataset= self.train_dataloader,
-            eval_dataset = self.eval_dataloader ,
-            compute_metrics= compute_metrics
-        )
-
-        self.trainer.train()
-
-        self.ft_model = self.trainer.train()
-
-        self.metrics = self.trainer.evaluate()
-
-        return self.model
-
-
-    def model_evaluation(self):
-        self.acc = self.metrics['eval_Accuracy']
-        self.precision = self.metrics['eval_Precision']
-        self.recall = self.recall['eval_Recall']
-
-        return self.acc , self.precision, self.recall
-
-
-
-    def prediction(self,texts):
-        # Text must be an array
-
-
-        self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-
-
-        self.inputs = self.tokenizer(texts, padding=True, truncation=True, return_tensors='pt')
-
-        self.inputs.to(self.device)
-
-
-        with torch.no_grad():
-            self.outputs = self.model(**self.inputs)
-
-        # Get predicted label IDs
-        predicted_label_ids = torch.argmax(self.outputs.logits, dim=1).tolist()
-
-        return predicted_label_ids
-
-
-
+def wait_for_fine_tuning(job_id):
+    while True:
+        response = client.fine_tuning.jobs.retrieve(job_id)
+        print(response.fine_tuned_model)
+        #print(response["fine_tuned_model"])
+        if response.fine_tuned_model:
+            print(response.fine_tuned_model)
+            return response.fine_tuned_model
+        time.sleep(30)
+    
