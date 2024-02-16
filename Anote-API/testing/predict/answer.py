@@ -1,4 +1,5 @@
-from transformers import pipeline, AutoModelForQuestionAnswering, AutoTokenizer
+
+from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig, HfArgumentParser, TrainingArguments, pipeline
 import openai
 import pandas as pd
 import requests
@@ -15,69 +16,66 @@ def generate_answers(question,
                      context,
                      model_type="Claude",
                      private=False):
-    if model_type == "question-answering":
-        model_name = "bert-large-uncased-whole-word-masking-finetuned-squad"
-    elif model_type == "custom_qa":
-        model_name = "your-custom-qa-model"  # Replace with your custom QA model
-    else:
-        raise ValueError("Invalid model_type. Supported types: Claude, GPT, Llama2, GPT4All")
-
-    # Initialize QA pipeline with the chosen model
-    qa_generator = pipeline("question-answering", model=model_name)
-
-    # Generate answers to the question given the context
-    answers = qa_generator(question=question, context=context)
-
 
     if private:
-        # Perform private answer generation logic here if needed
+        # LLAMA-2 Q-A logic 
+        base_model_name = "meta-llama/Llama-2-7b-chat-hf"
+        # Tokenizer
+        llama_tokenizer = AutoTokenizer.from_pretrained(base_model_name, trust_remote_code=True)
+        llama_tokenizer.pad_token = llama_tokenizer.eos_token
 
+        # Model
+        base_model = AutoModelForCausalLM.from_pretrained(base_model_name)
 
-        pass
+        #model inference using prompt template 
+        system_prompt = "You are a chatbot trained to answer questions based on the given context. If you do not know the answer to the question, say I do not know\n" 
+        user_prompt = question
+        input_section = context
+        text_gen = pipeline(task="text-generation", model = base_model_name, tokenizer=llama_tokenizer)
+        output = text_gen(f"<s>[INST] <<SYS>>\n{system_prompt}\n<</SYS>>\n\n{user_prompt} {input_section} [/INST]")
+        generated_text = output[0]['generated_text']
+        # Extracting the part of the text after [/INST]
+        response_start_idx = generated_text.find("[/INST]") + len("[/INST]")
+        model_response = generated_text[response_start_idx:].strip()
+        print(model_response)
+        return model_response
 
 
     if model_type == 'GPT':
         openai.api_key = "Enter Your Api Key"
-        system_content = "You are a factual chatbot that answers questions about 10-K documents. You only answer with answers you find in the text, no outside information."
+        system_content = "You are a chatbot trained to answer questions based on the given context. If you do not know the answer to the question, say I do not know\n."
 
         output = []
-
-        for question in questions:
-            completion = openai.ChatCompletion.create(
-                model= model_id ,
-                messages=[
+ 
+        completion = openai.ChatCompletion.create(
+            model= "gpt-4",
+            messages=[
                     {"role": "system", "content": system_content},
                     {"role": "user", "content": f"{question}" }
-                ])
+            ])
 
             #print(f'text: {row}')
-            print(completion.choices[0].message.content)
+        print(completion.choices[0].message.content)
 
-            output.append(completion.choices[0].message.content)
+        output.append(completion.choices[0].message.content)
 
     elif model_type == 'Claude':
         claude_key = "Enter API Key"
-
-        formatted_examples = [f"<answer> {example['answer']} </answer>" for example in examples]
-
-
         anthropic = Anthropic(
         # defaults to os.environ.get("ANTHROPIC_API_KEY")
         api_key=claude_key,
         )
 
-        for question in questions():
-            completion = anthropic.completions.create(
+        completion = anthropic.completions.create(
             model="claude-2",
             max_tokens_to_sample=700,
             prompt = (
-                f"{HUMAN_PROMPT} "
-                f"You are an accurate chatbot specialized in responding to queries about 10-K documents. Please only respond in the manner demonstrated by the following examples. If an explanation wasn't ask, refrain from providing one. "
-                f"Based on the following examples: {formatted_examples}, please provide your answer in the same format. "
-                f"please address the question: {question}. "
-                f"{AI_PROMPT}")
-            )
+                    f"{HUMAN_PROMPT} "
+                    f"You are a chatbot trained to answer questions based on the given context. If you do not know the answer to the question, say I do not know\n "
+                    f"please address the question: {question}. "
+                    f"Consider the provided text as evidence: {context}. "
+                    f"{AI_PROMPT}") ) 
 
-            output.append(completion.completion)
+        output.append(completion.completion)
 
     return output

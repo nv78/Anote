@@ -11,7 +11,6 @@ print(grandparent_dir)
 
 def run_all_tests():
     # Run your pytest test cases here
-
     pytest.main(['./test_functions/test_upload.py'])
     pytest.main(['./test_functions/test_evaluate.py'])
     pytest.main(['./test_functions/test_ner.py'])
