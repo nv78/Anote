@@ -1,4 +1,4 @@
-import os 
+import os
 import sys
 from openai import OpenAI
 import pandas as pd
@@ -19,11 +19,10 @@ client = OpenAI(api_key=api_key)
 def classify_document(categories, input_data, model_type="gpt3.5_turbo", private=False):
     # Initialize OpenAI client with your API key
 
-
     if model_type == "gpt3.5_turbo":
         pred = []
         system_content = f"given the following text: find the category in: {categories} that is most closely associated with it. Return only the category name only in following format"
-        
+
         for text in input_data:
             completion = client.chat.completions.create(
                 model='gpt-3.5-turbo-0301',
@@ -31,12 +30,12 @@ def classify_document(categories, input_data, model_type="gpt3.5_turbo", private
                     {"role": "system", "content": system_content},
                     {"role": "user", "content": text}]
             )
-            
+
             pred.append(completion.choices[0].message.content)
-        
+
         return pred
 
-    elif model_type == "bart": 
+    elif model_type == "bart":
         pipe = pipeline(model="facebook/bart-large-mnli")
 
         print(input_data,categories)
@@ -46,8 +45,6 @@ def classify_document(categories, input_data, model_type="gpt3.5_turbo", private
             scores = completion[i]['scores']
             max_score_index = scores.index(max(scores))
             result.append(completion[i]['labels'][max_score_index])
-        
-        print(result)
 
         return result
 

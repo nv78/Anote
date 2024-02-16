@@ -1,43 +1,31 @@
 
 from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig, HfArgumentParser, TrainingArguments, pipeline
 import openai
-import pandas as pd
-import requests
-import json
-import datetime
-import shutil
-import os
-from datasets import load_dataset
-import time
-import anthropic
 from anthropic import Anthropic, HUMAN_PROMPT, AI_PROMPT
 
 def generate_answers(question,
                      context,
                      model_type="Claude",
                      private=False):
-
     if private:
-        # LLAMA-2 Q-A logic 
+        # LLAMA-2 Q-A logic
         base_model_name = "meta-llama/Llama-2-7b-chat-hf"
         # Tokenizer
         llama_tokenizer = AutoTokenizer.from_pretrained(base_model_name, trust_remote_code=True)
         llama_tokenizer.pad_token = llama_tokenizer.eos_token
 
-        # Model
-        base_model = AutoModelForCausalLM.from_pretrained(base_model_name)
-
-        #model inference using prompt template 
-        system_prompt = "You are a chatbot trained to answer questions based on the given context. If you do not know the answer to the question, say I do not know\n" 
+        #model inference using prompt template
+        system_prompt = "You are a chatbot trained to answer questions based on the given context. If you do not know the answer to the question, say I do not know\n"
         user_prompt = question
         input_section = context
         text_gen = pipeline(task="text-generation", model = base_model_name, tokenizer=llama_tokenizer)
         output = text_gen(f"<s>[INST] <<SYS>>\n{system_prompt}\n<</SYS>>\n\n{user_prompt} {input_section} [/INST]")
         generated_text = output[0]['generated_text']
+
         # Extracting the part of the text after [/INST]
         response_start_idx = generated_text.find("[/INST]") + len("[/INST]")
         model_response = generated_text[response_start_idx:].strip()
-        print(model_response)
+
         return model_response
 
 
@@ -46,16 +34,13 @@ def generate_answers(question,
         system_content = "You are a chatbot trained to answer questions based on the given context. If you do not know the answer to the question, say I do not know\n."
 
         output = []
- 
+
         completion = openai.ChatCompletion.create(
             model= "gpt-4",
             messages=[
                     {"role": "system", "content": system_content},
                     {"role": "user", "content": f"{question}" }
             ])
-
-            #print(f'text: {row}')
-        print(completion.choices[0].message.content)
 
         output.append(completion.choices[0].message.content)
 
@@ -74,7 +59,7 @@ def generate_answers(question,
                     f"You are a chatbot trained to answer questions based on the given context. If you do not know the answer to the question, say I do not know\n "
                     f"please address the question: {question}. "
                     f"Consider the provided text as evidence: {context}. "
-                    f"{AI_PROMPT}") ) 
+                    f"{AI_PROMPT}") )
 
         output.append(completion.completion)
 
