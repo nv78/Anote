@@ -1,7 +1,7 @@
 # test_evaluate.py
 
 import pytest
-from evaluate import (
+from util.evaluate import (
     evaluate_classification_model,
     evaluate_question_answering_cosine_similarity,
     evaluate_question_answering_bleu_score,

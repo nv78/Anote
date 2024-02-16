@@ -6,7 +6,7 @@ current_dir = os.path.dirname(__file__)
 grandparent_dir = os.path.abspath(os.path.join(current_dir, '../../'))
 sys.path.append(grandparent_dir)
 
-from upload import upload, _tokenize, _parse_actual_labels_from_csv, _get_text_from_url
+from util.upload import upload, _tokenize, _parse_actual_labels_from_csv, _get_text_from_url
 
 # Dummy test data for the test cases
 SAMPLE_TEXT = "This is a sample text\nwith multiple lines\nfor testing"

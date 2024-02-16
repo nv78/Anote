@@ -9,7 +9,7 @@ print(grandparent_dir)
 sys.path.append(grandparent_dir)
 
 from unittest.mock import patch, MagicMock
-from predictions.answer import generate_answers
+from util.predictions.answer import generate_answers
 
 def question_answering_private():
     question = "What is the capital of France?"

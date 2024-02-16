@@ -10,7 +10,7 @@ grandparent_dir = os.path.abspath(os.path.join(current_dir, '../../'))
 sys.path.append(grandparent_dir)
 
 
-from predict import predict
+from util.predictions import predict
 import pytest
 
 # Use the pytest.mark.parametrize decorator on the test function
@@ -32,8 +32,8 @@ def sentiment_analysis(review, expected_sentiment):
     actual_sentiment = predict(task_type='classify', categories=CATEGORIES, input_data=review)
     print('actual_sentiment:', actual_sentiment)
 
-    assert actual_sentiment == expected_sentiment 
-    print("Test Passed!") 
+    assert actual_sentiment == expected_sentiment
+    print("Test Passed!")
  """
 
 @pytest.mark.parametrize("review, expected_sentiment", [
@@ -46,5 +46,5 @@ def sentiment_analysis(review, expected_sentiment):
 def test_sentiment_analysis(review, expected_sentiment):
     # Assuming predict is a function you've defined or imported elsewhere
     actual_sentiment = predict(task_type='classify', categories=["positive", "negative", "neutral"], input_data=review)
-    
+
     assert actual_sentiment == expected_sentiment, f"Expected {expected_sentiment}, got {actual_sentiment}"
