@@ -28,7 +28,6 @@ def generate_answers(question,
 
         return model_response
 
-
     if model_type == 'GPT':
         openai.api_key = "Enter Your Api Key"
         system_content = "You are a chatbot trained to answer questions based on the given context. If you do not know the answer to the question, say I do not know\n."
@@ -47,7 +46,7 @@ def generate_answers(question,
     elif model_type == 'Claude':
         claude_key = "Enter API Key"
         anthropic = Anthropic(
-        # defaults to os.environ.get("ANTHROPIC_API_KEY")
+
         api_key=claude_key,
         )
 

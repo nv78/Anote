@@ -22,12 +22,12 @@ from openai import OpenAI
 def ClassificationJson(data,filename,categories):
     """
     Converts a given dataset into a JSON Lines (JSONL) file suitable for OpenAI's GPT-3.5 turbo model.
-    
+
     Args:
         data (DataFrame or similar data structure): Input data containing text and labels.
 
     The function processes the input data row by row, constructing conversations for each row with a system message, user message, and an assistant message. It then writes the generated conversation data to a JSONL file.
- 
+
     """
     # Initialize an empty list to store conversation data
     message_list = []
@@ -72,7 +72,7 @@ def ClassificationJson(data,filename,categories):
 def fine_tune_model(model_id,pandas_df):
     df = pandas_df
     filename = f'ft_model.jsonl'
-    text_to_openai_json(df, filename)
+    ClassificationJson(df, filename)
     loader = client.files.create(file=open(filename, "rb"), purpose='fine-tune')
     fine_tuning_job = client.fine_tuning.jobs.create(training_file=loader.id, model="gpt-3.5-turbo-1106")
     return fine_tuning_job.id
@@ -87,4 +87,4 @@ def wait_for_fine_tuning(job_id):
             print(response.fine_tuned_model)
             return response.fine_tuned_model
         time.sleep(30)
-    
+

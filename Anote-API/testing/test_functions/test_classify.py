@@ -8,7 +8,7 @@ current_dir = os.path.dirname(__file__)
 grandparent_dir = os.path.abspath(os.path.join(current_dir, '../../'))
 sys.path.append(grandparent_dir)
 
-from util.predictions import predict
+from util.predictions.classify import classify_document
 import pytest
 
 @pytest.mark.parametrize("review, expected_sentiment", [
@@ -20,6 +20,6 @@ import pytest
 ])
 def test_sentiment_analysis(review, expected_sentiment):
     # Assuming predict is a function you've defined or imported elsewhere
-    actual_sentiment = predict(task_type='classify', categories=["positive", "negative", "neutral"], input_data=review)
+    actual_sentiment = classify_document(task_type='classify', categories=["positive", "negative", "neutral"], input_data=review)
 
     assert actual_sentiment == expected_sentiment, f"Expected {expected_sentiment}, got {actual_sentiment}"

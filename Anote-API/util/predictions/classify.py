@@ -47,6 +47,9 @@ def classify_document(categories, input_data, model_type="gpt3.5_turbo", private
             result.append(completion[i]['labels'][max_score_index])
 
         return result
-
+    elif model_type == "setfit":
+        pass
+    elif model_type == "finetuning":
+        pass
     else:
         raise ValueError("Invalid model_type. Supported types: setfit, bert, gpt3.5 turbo")
