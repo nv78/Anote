@@ -4,7 +4,6 @@ import pytest
 import os
 import sys
 
-
 current_dir = os.path.dirname(__file__)
 grandparent_dir = os.path.abspath(os.path.join(current_dir, '../../'))
 sys.path.append(grandparent_dir)
