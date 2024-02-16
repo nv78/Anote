@@ -1,5 +1,5 @@
 import pytest
-import os 
+import os
 import sys
 
 current_dir = os.path.dirname(__file__)
@@ -18,6 +18,7 @@ def run_all_tests():
     pytest.main(['./test_functions/test_classify.py'])
     pytest.main(['./test_functions/test_rag.py'])
     pytest.main(['./test_functions/test_finetuning.py'])
+    pytest.main(['./test_functions/test_answer.py'])
 
 if __name__ == "__main__":
     run_all_tests()
