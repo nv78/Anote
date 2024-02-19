@@ -15,7 +15,7 @@ def run_all_tests():
     pytest.main(['./test_functions/test_evaluate.py'])
     pytest.main(['./test_functions/test_ner.py'])
     pytest.main(['./test_functions/test_classify.py'])
-    pytest.main(['./test_functions/test_rag.py'])
+    pytest.main(['./test_functions/test_rag_private.py'])
     pytest.main(['./test_functions/test_finetuning.py'])
     pytest.main(['./test_functions/test_answer.py'])
 
