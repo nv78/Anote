@@ -77,7 +77,7 @@ def truncate_chunks(sentences, max_tokens = 8192):
     current_length = 0
     for sentence in sentences:
         sentence_length = len(tokenizer.encode(sentence))
-        if current_length + sentence_length > max_tokens:
+        if current_length + sentence_length > (max_tokens):
             chunks.append(' '.join(current_chunk))
             current_chunk = [sentence]
             current_length = sentence_length
@@ -104,12 +104,11 @@ def ensure_utf8(strings):
         clean_string = ' '.join(clean_string.split())
         cleaned_strings.append(clean_string)
     return cleaned_strings
-
 import nltk
 from transformers import GPT2Tokenizer
 tokenizer = GPT2Tokenizer.from_pretrained("gpt2")
-openai_api_key = " "
-def create_embeddings(documents, openai_api_key, max_tokens = 8192):
+openai_api_key = ""
+def create_embeddings(documents, openai_api_key, max_tokens = 1000):
     openai_ef = embedding_functions.OpenAIEmbeddingFunction(
         api_key=openai_api_key,
         model_name="text-embedding-ada-002"
@@ -118,17 +117,32 @@ def create_embeddings(documents, openai_api_key, max_tokens = 8192):
     new_sentences = []
     page_connection = []
     for i, sentence in enumerate(sentences):
-        if len(tokenizer.encode(sentence)) > (max_tokens-50):
+        if sentence == "" or "\n":
+            continue
+        if len(tokenizer.encode(sentence)) > (max_tokens):
             new_sentences = nltk.sent_tokenize(sentence)
             new_chunks = truncate_chunks(new_sentences, max_tokens=max_tokens)
             for chunk in new_chunks:
-                new_sentences.append(chunk)
-                page_connection.append(chunk)
+                if len(tokenizer.encode(chunk)) > 1000:
+                    first_half=chunk[:(len(chunk)//2)]
+                    second_half=chunk[:(len(chunk)//2)]
+                    new_sentences.append(first_half)
+                    page_connection.append(first_half)
+                    new_sentences.append(second_half)
+                    page_connection.append(second_half)
+                else:
+                    new_sentences.append(chunk)
+                    page_connection.append(chunk)
         else:
-            new_sentences.append(sentence)
-            page_connection.append(sentence)
-    # new_sentences = ensure_utf8(new_sentences)
-    # new_sentences = [x.replace("\n", " ").replace('  ', ' ') for x in new_sentences]
+            chunk = sentence
+            first_half=chunk[:(len(chunk)//2)]
+            second_half=chunk[:(len(chunk)//2)]
+            new_sentences.append(first_half)
+            page_connection.append(first_half)
+            new_sentences.append(second_half)
+            page_connection.append(second_half)
+    new_sentences = ensure_utf8(new_sentences)
+    new_sentences = [x.replace("\n", " ").replace(' ', '') for x in new_sentences]
     vectors = process_and_combine(new_sentences, 2047, openai_ef)
     vectors_pages = list(zip(vectors, page_connection))
     return vectors_pages
@@ -300,11 +314,11 @@ def chunk_text(text, method="character", chunk_size=100, chunk_overlap=0):
     elif method == "recursive":
         text_splitter = RecursiveCharacterTextSplitter(chunk_size=chunk_size, chunk_overlap=chunk_overlap)
     elif method == "semantic":
-        text_splitter = SemanticChunker(OpenAIEmbeddings(openai_api_key=" "), breakpoint_threshold_type="percentile")
+        text_splitter = SemanticChunker(OpenAIEmbeddings(openai_api_key=""), breakpoint_threshold_type="percentile")
         documents = text_splitter.create_documents([text])
         return documents
     elif method == "agentic":
-        ac = AgenticChunker(openai_api_key=" ")
+        ac = AgenticChunker(openai_api_key="")
         sentences = text.split('.')
         ac.add_propositions(sentences)
         chunks = ac.get_chunks(get_type='list_of_strings')
@@ -321,7 +335,7 @@ def store_embeddings_in_chroma(documents, vectors, collection_name="Finance_benc
     collection = client.get_or_create_collection(name=collection_name)
     for i, (vector, page_connection) in enumerate(vectors):
          collection.upsert(f"id_{i}", vector, {"sentence": page_connection})
-local_llm = ChatOpenAI(model="gpt-3.5-turbo", openai_api_key = " ")
+local_llm = ChatOpenAI(model="gpt-3.5-turbo", openai_api_key = "")
 
 def rag(question, collection_name="FinanceBench_Embeddings", api_key=""):
     client = chromadb.Client(Settings())
@@ -405,8 +419,8 @@ def evaluate_llm_responses(question, model_answer, reference_answer):
 
 def evaluate_chunking_techniques(df, openai_api_key):
     # chunking_methods = ["basic"]
-    chunking_methods = ["basic", "character", "recursive", "semantic"]
-    # chunking_methods = ["agentic", "character", "recursive", "semantic"]
+    chunking_methods = ["recursive", "basic", "character", "semantic"]
+    #chunking_methods = ["character", "recursive", "semantic"]
     results = []
 
     for method in chunking_methods:
@@ -422,40 +436,41 @@ def evaluate_chunking_techniques(df, openai_api_key):
             ref_context = row['evidence_text']
 
             doc_path = os.path.join(download_dir, f"{doc_name}.pdf")
-
             #save_path = f"downloads/{row['financebench_id']}.pdf"
             download_pdf(pdf_url, doc_path)
+            print(i)
+            print(doc_name)
+            print(pdf_url)
+            if os.path.isfile(doc_path):
+                text = extract_text_from_pdf(doc_path)
+                documents = chunk_text(text, method=method)
+                vectors = create_embeddings(documents, openai_api_key)
+                
+                store_embeddings_in_chroma(documents, vectors, collection_name=f"Finance_bench_{method}")
 
-            text = extract_text_from_pdf(doc_path)
-            documents = chunk_text(text, method=method)
-            vectors = create_embeddings(documents, openai_api_key)
+                model_answer = rag(question, collection_name=f"Finance_bench_{method}", api_key=openai_api_key)
 
+                cosine_similarity_score = calculate_cosine_similarity(model_answer, ref_context)
+                bert_score_value = calculate_bertscore(model_answer, ref_context)
+                llm_eval = evaluate_llm_responses(question, model_answer, ref_context)
 
-            store_embeddings_in_chroma(documents, vectors, collection_name=f"Finance_bench_{method}")
-
-            model_answer = rag(question, collection_name=f"Finance_bench_{method}", api_key=openai_api_key)
-
-            cosine_similarity_score = calculate_cosine_similarity(model_answer, ref_context)
-            bert_score_value = calculate_bertscore(model_answer, ref_context)
-            llm_eval = evaluate_llm_responses(question, model_answer, ref_context)
-
-            results.append({
-                "doc_name" : doc_name,
-                "method": method,
-                "question": question,
-                "ref_answer": ref_answer,
-                "model_answer": model_answer,
-                "cosine_similarity": cosine_similarity_score,
-                "bert_score": bert_score_value,
-                "llm_eval": llm_eval
-            })
+                results.append({
+                    "doc_name" : doc_name,
+                    "method": method,
+                    "question": question,
+                    "ref_answer": ref_answer,
+                    "model_answer": model_answer,
+                    "cosine_similarity": cosine_similarity_score,
+                    "bert_score": bert_score_value,
+                    "llm_eval": llm_eval
+                })
 
     return pd.DataFrame(results)
 
 import csv
 
 def main():
-    df = pd.read_csv("PatronusAIfinancebench.csv")
+    df = pd.read_csv("filtered_PatronousAIfinancebench.csv")
     download_dir = "documents_QE"
     if not(os.path.exists(download_dir)):
         os.makedirs(download_dir, exist_ok=True)
@@ -464,7 +479,7 @@ def main():
 
     
 test_data = main()
-results_df = evaluate_chunking_techniques(test_data, openai_api_key = " ")
+results_df = evaluate_chunking_techniques(test_data, openai_api_key = "")
 
 #Save results to a CSV file
 results_df['model_answer'] = results_df['model_answer'].str.replace('\n', '<newline>').replace(',', '<comma>')
