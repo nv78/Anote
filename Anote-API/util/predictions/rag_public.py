@@ -4,9 +4,7 @@ from transformers import AutoTokenizer, AutoModelForCausalLM
 from transformers import pipeline
 import os
 import sys
-from langchain import HuggingFacePipeline, PromptTemplate
-from langchain.chains import RetrievalQA
-from langchain.document_loaders import UnstructuredPDFLoader, OnlinePDFLoader, PyPDFLoader
+from langchain.document_loaders import PyPDFLoader
 from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline
 from langchain.vectorstores import Chroma
 from torch import cuda
@@ -16,6 +14,7 @@ import pandas as pd
 import os
 from pathlib import Path
 import torch as cuda  # Assuming cuda from torch is being used for GPU support
+
 
 def create_knowledge_hub(documents_directory_path):
     """
@@ -70,55 +69,47 @@ def create_knowledge_hub(documents_directory_path):
     return vectordb, db_directory
 
 
+import openai
+
+# Set your OpenAI API key here
+openai.api_key = 'your_openai_api_key_here'
+
 def query_model(vectordb, question):
-    """Asks a question based on the contents of a vector database.
+    """Asks a question based on the contents of a vector database using OpenAI's GPT-4.
 
     Args:
         vectordb: The vector database created from documents
         question: Question to ask the model
 
     Returns:
-        answer: The answer given by the fine-tuned GPT model
+        answer: The answer given by the GPT-4 model
     """
 
-    # Assume vectordb is the vector database instance returned by the modified create_knowledge_hub function
+    # Fetch the most relevant documents as context
     source1 = vectordb.similarity_search(question, k=2)[0].page_content
     source2 = vectordb.similarity_search(question, k=2)[1].page_content
 
-    # Load the model and tokenizer
-    model = AutoModelForCausalLM.from_pretrained("meta-llama/Llama-2-7b-chat-hf",
-                                                 device_map='auto',
-                                                 torch_dtype=torch.float32,
-                                                 use_auth_token=True,
-                                                 load_in_8bit=False)
+    # Prepare the prompt with the relevant documents
+    prompt = f"Based on the following information:\n\n{source1}\n\nAnd:\n\n{source2}\n\nQuestion: {question}\nAnswer:"
 
-    tokenizer = AutoTokenizer.from_pretrained("meta-llama/Llama-2-7b-chat-hf", use_auth_token=True)
+    # Use OpenAI API to query GPT-4
+    response = openai.Completion.create(
+        model="gpt-4",  # Replace with the correct GPT-4 model identifier when available
+        prompt=prompt,
+        temperature=0.7,
+        max_tokens=150,
+        n=1,
+        stop=None,
+        top_p=1.0
+    )
 
-    retriever = vectordb.as_retriever(search_kwargs={"k": 2})
-
-    pipe = pipeline("text-generation",
-                    model=model,
-                    tokenizer=tokenizer,
-                    torch_dtype=torch.float32,
-                    device_map="auto",
-                    max_new_tokens=512,
-                    do_sample=True,
-                    top_k=30,
-                    num_return_sequences=1,
-                    eos_token_id=tokenizer.eos_token_id)
-
-    llm = HuggingFacePipeline(pipeline=pipe, model_kwargs={'temperature': 0.1})
-
-    qa_chain = RetrievalQA.from_chain_type(llm=llm,
-                                           chain_type="stuff",  # Ensure this is correctly defined or adjusted
-                                           retriever=retriever,
-                                           return_source_documents=True)
-
-    answer = qa_chain(question)['result']
+    # Extract the answer from the response
+    answer = response.choices[0].text.strip()
 
     return answer
 
-def rag_private(user_query, path_to_documents):
+
+def rag_public(user_query, path_to_documents):
     """
     Processes documents to create a knowledge hub and answers a user query based on this hub.
 
@@ -137,5 +128,3 @@ def rag_private(user_query, path_to_documents):
     answer = query_model(vectordb, user_query)
 
     return answer
-
-

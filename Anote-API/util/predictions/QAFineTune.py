@@ -6,6 +6,9 @@ import time
 
 from dotenv import load_dotenv
 
+# -- Now we can get to it
+from openai import OpenAI
+
 
 load_dotenv()
 
@@ -15,8 +18,7 @@ api_key = os.getenv("OPENAI_API_KEY")
 # Initialize OpenAI client with the API key
 client = OpenAI(api_key=api_key)
 
-# -- Now we can get to it
-from openai import OpenAI
+
 
 
 
@@ -72,7 +74,7 @@ def QuestionAnsweringJSON(data,filename):
 def fine_tune_model(model_id,pandas_df):
     df = pandas_df
     filename = f'ft_model.jsonl'
-    text_to_openai_json(df, filename)
+    QuestionAnsweringJSON(df, filename)
     loader = client.files.create(file=open(filename, "rb"), purpose='fine-tune')
     fine_tuning_job = client.fine_tuning.jobs.create(training_file=loader.id, model="gpt-3.5-turbo-1106")
     return fine_tuning_job.id
